@@ -1,0 +1,24 @@
+.bar {
+  display: flex;
+  height: 80vh;
+  border: 1px solid rgb(35, 83, 145);
+
+  &>.progress {
+    width: 50px;
+  }
+
+  &>.milestones {
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    height: 100%;
+
+    &>.stone {
+      $border: 1px solid rgb(44, 132, 214);
+      border-top: $border;
+      border-bottom: $border;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
