@@ -17,7 +17,7 @@ function App() {
   const [wants, setWants]: [Items, Function] = useState(wantItems)
   const [earned, setEarned] = useState(0)
 
-  const onChange = useCallback((e) => setEarned(e.target.value), [])
+  const onChange = useCallback((e: any) => setEarned(e.target.value), [])
 
   const total = sum(credits) + sum(wants)
 

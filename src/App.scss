@@ -7,9 +7,10 @@
     display: flex;
     align-items: last baseline;
     width: 50px;
+    border: 1px solid rgb(199, 107, 107);
 
     &>.bar {
-      background: red;
+      background: rgb(207, 58, 58);
       height: 30%;
       width: 100%;
     }
