@@ -1,16 +1,24 @@
-.bar {
+.chart {
   display: flex;
   height: 80vh;
   border: 1px solid rgb(35, 83, 145);
 
   &>.progress {
+    display: flex;
+    align-items: last baseline;
     width: 50px;
+
+    &>.bar {
+      background: red;
+      height: 30%;
+      width: 100%;
+    }
   }
 
   &>.milestones {
     display: flex;
     flex-direction: column;
-    width: 50px;
+    min-width: 50px;
     height: 100%;
 
     &>.stone {
