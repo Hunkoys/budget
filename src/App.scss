@@ -32,3 +32,13 @@
     }
   }
 }
+
+.data {
+  &>.textarea {
+    border: none;
+
+    &.outdated {
+      outline: 1px solid red;
+    }
+  }
+}
