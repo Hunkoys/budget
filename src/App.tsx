@@ -1,15 +1,5 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import './App.scss'
-
-const creditItems = {
-  Car: 1301,
-  Personal1: 300
-}
-
-const wantItems = {
-  Macbook: 2500,
-  Xreal: 400
-}
 
 
 function App() {
@@ -18,11 +8,20 @@ function App() {
   const [wants, setWants]: [Items, Function] = useState({})
   const [earned, setEarned] = useState(0)
 
+  useEffect(() => {
+    retrieve('credits').then(({ text }) => {
+      setCreditsText(text)
+      setCredits(parseData(text))
+    })
+  }, [])
+
   const [creditsText, setCreditsText] = useState()
   const [wantsText, setWantsText] = useState()
   const creditsOnChange = useCallback((e: any) => {
-    setCreditsText(e.target.value)
-    setCredits(parseData(e.target.value))
+    const val = e.target.value;
+    setCreditsText(val)
+    setCredits(parseData(val))
+    send('credits', { text: val })
   }, [])
   const wantsOnChange = useCallback((e: any) => {
     setWantsText(e.target.value)
@@ -33,7 +32,6 @@ function App() {
 
   const total = sum(credits) + sum(wants)
 
-
   return (
     <div className="app">
       <div className='chart'>
@@ -42,7 +40,7 @@ function App() {
         </div>
         <div className="milestones">{
           Object.entries({ ...credits, ...wants }).reverse().map(([name, c]: [string, number]) => {
-            return <div className='stone' style={{ height: percent(c, total) }}>{c + " " + name}</div>
+            return <div className='stone' style={{ height: percent(c, total) }}>{name + " " + c}</div>
           })
         }
         </div>
@@ -72,8 +70,6 @@ function parseData(data: string): Items {
       items[key] = Number(value)
   }))
 
-
-
   return items
 }
 
@@ -90,4 +86,28 @@ function sum(list: Items): number {
 
 function percent(n: number, cent: number): string {
   return n / cent * 100 + "%"
+}
+
+
+
+async function retrieve(url: string) {
+  const res = await fetch('/api/' + url);
+  return await res.json();
+}
+
+async function send(url: string, data: any) {
+  const res = await fetch('/api/' + url, {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify(data),
+  });
+
+  return res.json()
 }
