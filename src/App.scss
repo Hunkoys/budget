@@ -1,6 +1,12 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 85vh;
+}
+
 .chart {
   display: flex;
-  height: 80vh;
+  height: 100%;
   border: 1px solid rgb(35, 83, 145);
 
   &>.progress {
@@ -34,8 +40,13 @@
 }
 
 .data {
+  display: flex;
+  flex-direction: column;
+
   &>.textarea {
     border: none;
+    margin: 5px;
+    padding: 10px;
 
     &.outdated {
       outline: 1px solid red;
