@@ -32,7 +32,6 @@ function App() {
   const onChange = useCallback((e: any) => setEarned(e.target.value), [])
 
   const total = sum(credits) + sum(wants)
-  console.log(total);
 
 
   return (
@@ -66,10 +65,14 @@ interface Items {
 function parseData(data: string): Items {
   const list: any = data.split('\n').map(item => item.split(' '));
   const items: Items = {}
+
+
   list.forEach((([key, value]: [string, number]) => {
-    items[key] = Number(value)
+    if (key)
+      items[key] = Number(value)
   }))
-  console.log(items);
+
+
 
   return items
 }
@@ -77,7 +80,7 @@ function parseData(data: string): Items {
 
 function sum(list: Items): number {
   const array = Object.values(list)
-  console.log(array.length)
+
   if (array.length)
     return array.reduce((p: number, c: number) => {
       return p + c
