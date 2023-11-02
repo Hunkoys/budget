@@ -24,7 +24,7 @@ function App() {
       setDbWantsText(text)
     })
     retrieve('earned').then(({ text }) => {
-      setDbEarned(Number(text))
+      setDbEarned(text)
     })
   }, [])
 
@@ -39,7 +39,7 @@ function App() {
     setWantsText(val)
     setWants(parseData(val))
   }, [])
-  const onChange = useCallback((e: any) => setEarned(Number(e.target.value)), [])
+  const onChange = useCallback((e: any) => setEarned(e.target.value), [])
 
   useEffect(() => {
     creditsOnChange({ target: { value: dbCreditsText } })
@@ -48,7 +48,7 @@ function App() {
     wantsOnChange({ target: { value: dbWantsText } })
   }, [dbWantsText])
   useEffect(() => {
-    setEarned(Number(dbEarned))
+    setEarned(dbEarned)
   }, [dbEarned])
 
   const onSave = useCallback(() => {
